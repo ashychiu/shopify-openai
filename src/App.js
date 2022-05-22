@@ -7,9 +7,9 @@ const [responses, setResponses] = useState([]);
 const [prompts, setPrompts] = useState([]);
 const [prompt, setPrompt] = useState({});
 
-   useEffect(() => {
-    setPrompts([...prompts, prompt])
- }, [prompt]);
+useEffect(() => {
+  document.title = "Ashley Chiu - Fun with AI"
+}, []);
 
 const postPrompt = async () => {
   try {
@@ -23,7 +23,6 @@ const postPrompt = async () => {
        })
        const data = await res.json();
        setResponses([...responses, data.choices[0]]);
-       console.log("res", responses)
   } catch (err) {
     console.log(err);
   }
@@ -40,6 +39,7 @@ const postPrompt = async () => {
       frequency_penalty: 0.0,
       presence_penalty: 0.0,
      });
+    setPrompts([...prompts, prompt])
     postPrompt();
     e.target.reset();
   };
@@ -51,17 +51,16 @@ const postPrompt = async () => {
           Fun with AI
         </h1>
         </header>
+        <section>
         <form onSubmit={handleSubmit}>
-      <label htmlFor="prompt-input">Enter prompt</label>
-      <textarea id="prompt-input" name="prompt-input" rows="10" cols="50">
-
-</textarea>
-      <button>Submit</button>
-      </form>
+      <label htmlFor="input">Enter prompt</label>
+      <textarea id="input" name="input" rows="10" cols="50"></textarea>
+      <button type="submit" className="btn">Submit</button>
+      </form></section>
       <section>
         <h2>Responses</h2>
 <div className="test">
-        {responses.map((res, index) => {
+        {responses.length ? (responses.map((res, index) => {
           const prompt = prompts[index];
         return (
           <div key={index} className="response-card">
@@ -69,11 +68,9 @@ const postPrompt = async () => {
             <p>Response: {res.text}</p>
           </div>
         );
-      })}
+      })) : (<p>Please enter a prompt</p>)}
       </div> 
       </section>
-
-
     </main>
   );
 }
