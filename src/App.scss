@@ -1,6 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 
-$raleway: "Raleway", serif;
+$lato: "Lato", sans-serif;
 *,
 *::before,
 *::after {
@@ -9,7 +9,7 @@ $raleway: "Raleway", serif;
 
 body {
   margin: 0;
-  font-family: $raleway;
+  font-family: $lato;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -23,4 +23,8 @@ body {
 textarea {
   display: block;
   resize: vertical;
+}
+
+input, textarea {
+  font-family: $lato;
 }
