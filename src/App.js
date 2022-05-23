@@ -17,7 +17,6 @@ useEffect(() => {
   if (!firstRender){
   const postAPI = async () => {
     try {
-      console.log("before", prompt);
       const res = await fetch("https://api.openai.com/v1/engines/text-curie-001/completions", {
           method: "POST",
           headers: {
@@ -29,7 +28,7 @@ useEffect(() => {
          const data = await res.json();
          setResponses([data.choices[0], ...responses]);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
   postAPI();
@@ -51,6 +50,19 @@ const handleSubmit = (e) => {
   e.target.reset();
 };
 
+const handleSelect = (e) => {
+  e.preventDefault();
+  const input = e.target.value;
+  setPrompt({
+    prompt: input,
+    temperature: 0.5,
+    max_tokens: 150,
+    top_p: 1.0,
+    frequency_penalty: 0.0,
+    presence_penalty: 0.0,
+   });
+};
+
   return (
     <main>
       <header>
@@ -59,8 +71,19 @@ const handleSubmit = (e) => {
         </h1>
         </header>
         <section>
+        <div className="select">
+  <select onChange={handleSelect}>
+    <option>Select a prompt</option>
+    <option value="">I'm feeling lucky (Random response)</option>
+    <option value="Knock knock">Knock knock</option>
+    <option value="Tell me a joke">Tell me a joke</option>
+    <option value="Siri, what do you think of Alexa?">Siri, what do you think of Alexa?</option>
+    <option value="What should Elon Musk buy next?">What should Elon Musk buy next?</option>
+    <option value="How to fix Google without Googling?">How to fix Google without Googling?</option>
+  </select>
+</div>
         <form onSubmit={handleSubmit}>
-      <label htmlFor="input">Enter prompt</label>
+      <label htmlFor="input">Or enter your own here:</label>
       <textarea id="input" name="input" rows="10" cols="50"></textarea>
       <button type="submit" className="btn">Submit</button>
       </form></section>
@@ -70,9 +93,9 @@ const handleSubmit = (e) => {
         {responses.map((res, index) => {
           const prompt = prompts[index];
         return (
-          <div key={index} className="response-card">
-            <p>Prompt: {prompt.prompt}</p>    
-            <p>Response: {res.text}</p>
+          <div key={index} className={index === 0? "animation response-card": "response-card"}>
+            <p>Prompt:</p><p>{prompt.prompt}</p>
+            <p>Response: </p><p>{res.text}</p>
           </div>
         );
       })}</>}
