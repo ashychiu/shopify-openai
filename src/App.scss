@@ -54,6 +54,7 @@ section {
 textarea {
   display: block;
   resize: vertical;
+  padding: 0.5rem;
 }
 
 input, textarea, select {
@@ -64,6 +65,7 @@ select {
 font-size: 1rem;
   padding: 5px;
   margin-bottom: 0.8rem;
+  font-size: 1rem;
 }
 
 .btn {
