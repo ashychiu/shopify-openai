@@ -6,11 +6,36 @@ function App() {
 const [responses, setResponses] = useState([]);
 const [prompts, setPrompts] = useState([]);
 const [prompt, setPrompt] = useState({});
+const [firstRender, setFirstRender] = useState(true);
 
 useEffect(() => {
-  document.title = "Ashley Chiu - Fun with AI"
+  document.title = "Ashley Chiu - Fun with AI";
+  setFirstRender(false)
 }, []);
 
+useEffect(() => {
+  if (!firstRender){
+  const postAPI = async () => {
+    try {
+      console.log("before", prompt);
+      const res = await fetch("https://api.openai.com/v1/engines/text-curie-001/completions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.REACT_APP_OPENAI_SECRET}`,
+          },
+          body: JSON.stringify(prompt),
+         })
+         const data = await res.json();
+         setResponses([data.choices[0], ...responses]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  postAPI();
+  setPrompts((prev) => [prompt, ...prev])
+}
+}, [prompt]);
 
 const handleSubmit = (e) => {
   e.preventDefault();
@@ -23,32 +48,8 @@ const handleSubmit = (e) => {
     frequency_penalty: 0.0,
     presence_penalty: 0.0,
    });
-   console.log("after", prompt)
-  setPrompts((prev) => [prompt, ...prev])
-  console.log("prompts", prompts)
-  postPrompt();
   e.target.reset();
 };
-
-const postPrompt = async () => {
-  try {
-    console.log("before", prompt);
-    const res = await fetch("https://api.openai.com/v1/engines/text-curie-001/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.REACT_APP_OPENAI_SECRET}`,
-        },
-        body: JSON.stringify(prompt),
-       })
-       const data = await res.json();
-       setResponses([...responses, data.choices[0]]);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-  
 
   return (
     <main>
