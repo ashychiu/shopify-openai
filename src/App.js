@@ -1,4 +1,5 @@
 import { React, useEffect, useState } from "react";
+import { LinearProgress } from "@mui/material";
 import './App.scss';
 
 
@@ -7,6 +8,7 @@ const [responses, setResponses] = useState([]);
 const [prompts, setPrompts] = useState([]);
 const [prompt, setPrompt] = useState({});
 const [firstRender, setFirstRender] = useState(true);
+const [isLoading, setIsLoading] = useState(false);
 
 useEffect(() => {
   document.title = "Ashley Chiu - Fun with AI";
@@ -16,6 +18,7 @@ useEffect(() => {
 useEffect(() => {
   if (!firstRender){
   const postAPI = async () => {
+    setIsLoading(true);
     try {
       const res = await fetch("https://api.openai.com/v1/engines/text-curie-001/completions", {
           method: "POST",
@@ -27,6 +30,7 @@ useEffect(() => {
          })
          const data = await res.json();
          setResponses([data.choices[0], ...responses]);
+         setIsLoading(false);
     } catch (err) {
       console.error(err);
     }
@@ -89,7 +93,13 @@ const handleSelect = (e) => {
       </form></section>
       <section>
 <div className="response-container">
+{isLoading && responses.length === 0 && (
+  <LinearProgress/>
+      )}
         {responses.length > 0 && <><h2>Responses</h2>
+       <p>{isLoading && (
+  <LinearProgress/>
+      )}</p>
         {responses.map((res, index) => {
           const prompt = prompts[index];
         return (
