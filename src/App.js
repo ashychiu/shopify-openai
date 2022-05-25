@@ -35,6 +35,7 @@ function App() {
           const data = await res.json();
           setResponses([data.choices[0], ...responses]);
           setIsLoading(false);
+          console.log("after", isLoading);
         } catch (err) {
           console.error(err);
         }
@@ -77,7 +78,9 @@ function App() {
       <section>
         <div className="select">
           <select onChange={handleSelect}>
-            <option>Select a prompt</option>
+            <option selected disabled>
+              Select a prompt
+            </option>
             <option value="">I'm feeling lucky (Random response)</option>
             <option value="Knock knock">Knock knock</option>
             <option value="Tell me a joke">Tell me a joke</option>
@@ -102,11 +105,10 @@ function App() {
       </section>
       <section>
         <div className="response-container">
-          {isLoading && responses.length === 0 && <LinearProgress />}
+          {isLoading && <LinearProgress />}
           {responses.length > 0 && (
             <>
               <h2>Responses</h2>
-              <p>{isLoading && <LinearProgress />}</p>
               {responses.map((res, index) => {
                 const prompt = prompts[index];
                 return (
