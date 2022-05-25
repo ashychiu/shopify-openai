@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
 
 $lato: "Lato", sans-serif;
 
@@ -17,33 +17,35 @@ $lato: "Lato", sans-serif;
   box-sizing: border-box;
 }
 
+html,
+body,
+#root {
+  height: 100vh;
+  padding-bottom: 60px;
+}
+
 body {
   margin: 0;
   font-family: $lato;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  height: 100vh;
 }
 
-main {
-  padding: 2rem;
-}
 section {
   width: 100%;
+  padding: 0 2rem;
 }
 
 .response {
   &-container {
-    width: 800px;
+    // width: 800px;
     margin: 2rem;
     div:first-of-type {
-      background-color: #ab9f9d;
+      background-color: #8cc0de;
     }
   }
   &-card {
-    max-width: 80%;
-    background-color: #d1beb0;
+    // max-width: 80%;
+    background-color: #e8f9fd;
     padding: 1rem;
     margin-bottom: 2rem;
     border-radius: 5px;
@@ -57,12 +59,14 @@ textarea {
   padding: 0.5rem;
 }
 
-input, textarea, select {
+input,
+textarea,
+select {
   font-family: $lato;
 }
 
 select {
-font-size: 1rem;
+  font-size: 1rem;
   padding: 5px;
   margin-bottom: 0.8rem;
   font-size: 1rem;
@@ -80,4 +84,26 @@ font-size: 1rem;
 
 .animation {
   animation: 2s ease-out 0s 1 slideFromBottom;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.header__logo {
+  width: 10%;
+  margin: 1rem;
 }
