@@ -3,6 +3,7 @@ import { LinearProgress } from "@mui/material";
 import "./App.scss";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
+import Modal from "./components/Modal/Modal";
 
 function App() {
   const [responses, setResponses] = useState([]);
@@ -10,6 +11,7 @@ function App() {
   const [prompt, setPrompt] = useState({});
   const [firstRender, setFirstRender] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [showModal, setShowModal] = useState(true);
 
   useEffect(() => {
     document.title = "Ashley Chiu - Fun with AI";
@@ -35,7 +37,6 @@ function App() {
           const data = await res.json();
           setResponses([data.choices[0], ...responses]);
           setIsLoading(false);
-          console.log("after", isLoading);
         } catch (err) {
           console.error(err);
         }
@@ -43,8 +44,11 @@ function App() {
       postAPI();
       setPrompts((prev) => [prompt, ...prev]);
     }
-  }, [prompt]);
+  }, [prompt, firstRender, responses]);
 
+  const handleClose = () => {
+    setShowModal(false);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     const input = e.target[0].value;
@@ -75,6 +79,7 @@ function App() {
   return (
     <main>
       <Header />
+      {showModal && <Modal handleClose={handleClose} />}
       <section>
         <div className="select">
           <select onChange={handleSelect}>
