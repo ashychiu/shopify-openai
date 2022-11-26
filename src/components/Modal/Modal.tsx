@@ -13,7 +13,7 @@ const Modal = (props: IModalProps) => {
     <div className="modal">
       <div className="modal__container">
         <AiFillCloseCircle
-          onClick={handleClose}
+          onClick={() => handleClose()}
           className="closeButton"
           size="1.5rem"
         />
