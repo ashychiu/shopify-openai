@@ -2,7 +2,11 @@ import React from "react";
 import "./Modal.scss";
 import { AiFillCloseCircle } from "react-icons/ai";
 
-const Modal = (props) => {
+interface IModalProps {
+  handleClose: Function;
+}
+
+const Modal = (props: IModalProps) => {
   const { handleClose } = props;
 
   return (

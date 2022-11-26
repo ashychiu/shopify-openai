@@ -3,7 +3,7 @@ import { LinearProgress } from "@mui/material";
 import "./App.scss";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
-import Modal from "./components/Modal/Modal";
+import Modal from "./components/Modal/Modal.tsx";
 
 function App() {
   const [responses, setResponses] = useState([]);
