@@ -18,7 +18,7 @@ const Modal = (props: IModalProps) => {
           size="1.5rem"
         />
         <h2>Update Oct 2022: This is a legacy project.</h2>
-        <p>Unfortunately OpenAI API's free trial has expired. </p>
+        <p>Unfortunately OpenAI no longer offers free tier service.</p>
         <p>
           But free feel to stick around and check out{" "}
           <a
